@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { User } from "@supabase/auth-helpers-nextjs";
 
-export default function AuthButton() {
+type AuthButtonProps = {
+  label?: string;
+  className?: string;
+};
+
+export default function AuthButton({ label, className }: AuthButtonProps) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
@@ -62,11 +67,11 @@ export default function AuthButton() {
 
   if (user) {
     return (
-      <div className="flex items-center gap-4">
+      <div className={`flex items-center gap-4 ${className ?? ""}`}>
         <span className="text-sm text-gray-600">{user.email}</span>
         <button
           onClick={handleSignOut}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors"
+          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           Sign Out
         </button>
@@ -78,7 +83,9 @@ export default function AuthButton() {
     <button
       onClick={handleSignIn}
       disabled={loading}
-      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-colors flex items-center gap-2"
+      className={`bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+        className ?? ""
+      }`}
     >
       {loading ? (
         <>
@@ -119,7 +126,7 @@ export default function AuthButton() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          Sign in with Google
+          {label ?? "Sign in with Google"}
         </>
       )}
     </button>

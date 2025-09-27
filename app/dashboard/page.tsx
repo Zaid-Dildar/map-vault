@@ -1,8 +1,10 @@
+// app/dashboard/page.tsx (Minimal version)
 import { createServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import AuthButton from "@/components/auth/AuthButton";
 import ExportButton from "@/components/dashboard/ExportButton";
 import MapView from "@/components/maps/MapView";
+import ScrapingButton from "@/components/dashboard/ScrapingButton";
 
 export default async function DashboardPage() {
   const supabase = createServerClient();
@@ -14,7 +16,7 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
-  // Mock data for now - replace with actual scraped data
+  // Mock data for demonstration
   const mockPlaces = [
     {
       id: "1",
@@ -42,7 +44,7 @@ export default async function DashboardPage() {
                 MapVault Dashboard
               </h1>
               <p className="text-sm text-gray-600 mt-1">
-                Export your Google Maps saved places
+                Demo version - Full functionality coming soon
               </p>
             </div>
             <AuthButton />
@@ -53,34 +55,47 @@ export default async function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-semibold mb-4">
-                Your Saved Places Map
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Import Your Places
               </h2>
-              <MapView places={mockPlaces} />
+              <ScrapingButton userId={session.user.id} />
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-4">Places Summary</h3>
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600">
-                  Total Places:{" "}
-                  <span className="font-semibold">{mockPlaces.length}</span>
-                </p>
-                <p className="text-sm text-gray-600">
-                  Last Updated: <span className="font-semibold">Just now</span>
-                </p>
-              </div>
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Demo: Your Saved Places
+              </h2>
+              <MapView places={mockPlaces} />
             </div>
           </div>
 
           <div className="space-y-6">
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Statistics (Demo)</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Total Places:</span>
+                  <span className="font-semibold text-gray-900">
+                    {mockPlaces.length}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Categories:</span>
+                  <span className="font-semibold text-gray-900">2</span>
+                </div>
+              </div>
+            </div>
+
             <ExportButton />
 
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-4">Recent Exports</h3>
-              <p className="text-sm text-gray-500">
-                No exports yet. Start by clicking the export buttons above.
+            <div className="bg-blue-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">
+                🚧 Under Development
+              </h3>
+              <p className="text-sm text-blue-800 mb-4">
+                This is a demo version. The full Google Maps integration and
+                export functionality will be implemented soon.
               </p>
             </div>
           </div>
