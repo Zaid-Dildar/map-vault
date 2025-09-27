@@ -18,8 +18,7 @@ export default async function HomePage() {
       <header className="px-6 py-6">
         <div className="mx-auto max-w-7xl flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/globe.svg" alt="MapVault logo" width={28} height={28} className="imgLight" />
-            <Image src="/globe.svg" alt="MapVault logo" width={28} height={28} className="imgDark" />
+            <Image src="https://cdn.builder.io/api/v1/image/assets%2F7eaf6aad344742baad50e5034e5e9e79%2F7a33ad8dcd6040049ee497727d2ab40e" alt="MapVault logo" width={28} height={28} />
             <span className="text-xl font-bold text-gray-900">MapVault</span>
           </div>
           <div className="hidden sm:block">
