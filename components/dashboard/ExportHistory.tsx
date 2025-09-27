@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/database";
 import {
   Download,
@@ -19,24 +18,22 @@ export default function ExportHistory() {
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const supabase = createClient();
-
+  // Fetch exports for logged-in user
   const fetchExports = useCallback(async () => {
+    setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from("export_jobs")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const res = await fetch("/api/exports/history");
+      if (!res.ok) throw new Error("Failed to fetch export history");
 
-      if (error) throw error;
-      setExports(data || []);
+      const json = await res.json();
+      setExports(json.exports || []);
     } catch (err) {
       console.error("Failed to fetch exports:", err);
       setError("Failed to load export history");
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchExports();
@@ -44,22 +41,15 @@ export default function ExportHistory() {
 
   const handleDownload = async (exportJob: ExportJob) => {
     try {
-      const filePath = `${exportJob.user_id}/${exportJob.id}.${exportJob.format}`;
+      const res = await fetch(`/api/exports/download?id=${exportJob.id}`);
+      if (!res.ok) throw new Error("Failed to get file");
 
-      const { data, error } = await supabase.storage
-        .from("exports")
-        .createSignedUrl(filePath, 60);
-
-      if (error || !data?.signedUrl) throw error;
-
-      // Fetch as blob
-      const response = await fetch(data.signedUrl);
-      const blob = await response.blob();
-
+      const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
+
       const link = document.createElement("a");
       link.href = url;
-      link.download = `saved_places_${exportJob.id}.${exportJob.format}`;
+      link.download = `saved_places`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -72,28 +62,14 @@ export default function ExportHistory() {
 
   const handleDelete = async (exportJob: ExportJob) => {
     if (!confirm("Are you sure you want to delete this export?")) return;
-
     setDeletingId(exportJob.id);
 
     try {
-      const filePath = `${exportJob.user_id}/${exportJob.id}.${exportJob.format}`;
+      const res = await fetch(`/api/exports/history?id=${exportJob.id}`, {
+        method: "DELETE",
+      });
 
-      // Remove from storage
-      const { error: storageError } = await supabase.storage
-        .from("exports")
-        .remove([filePath]);
-
-      if (storageError) {
-        console.error("Storage deletion failed:", storageError);
-      }
-
-      // Remove from DB
-      const { error: dbError } = await supabase
-        .from("export_jobs")
-        .delete()
-        .eq("id", exportJob.id);
-
-      if (dbError) throw dbError;
+      if (!res.ok) throw new Error("Failed to delete export");
 
       setExports((prev) => prev.filter((exp) => exp.id !== exportJob.id));
     } catch (err) {
