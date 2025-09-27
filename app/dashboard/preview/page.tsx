@@ -1,7 +1,6 @@
 // app/dashboard/preview/page.tsx
 // This route bypasses authentication for Builder.io previews
 
-import AuthButton from "@/components/auth/AuthButton";
 import ExportButton from "@/components/dashboard/ExportButton";
 import MapView from "@/components/maps/MapView";
 import ScrapingButton from "@/components/dashboard/ScrapingButton";
@@ -83,8 +82,8 @@ export default function PreviewDashboardPage() {
                 Builder.io Preview Mode
               </h3>
               <p className="text-sm text-purple-800 mt-1">
-                You're viewing this in Builder.io with mock data. In production,
-                this will show real Google Maps saved places after
+                You&apos;re viewing this in Builder.io with mock data. In
+                production, this will show real Google Maps saved places after
                 authentication.
               </p>
             </div>
