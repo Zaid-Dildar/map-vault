@@ -72,8 +72,8 @@ export default function PlaceManager({
     <div className="space-y-8">
       {/* Always visible map */}
       <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex items-center justify-between">
+        <div className="px-4 py-4 sm:px-6 sm:py-4 border-b border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
             <div>
               <h2 className="text-lg font-semibold text-gray-900 flex items-center">
                 <Map className="w-5 h-5 mr-2" />
@@ -87,9 +87,10 @@ export default function PlaceManager({
                     }`}
               </p>
             </div>
+
             {places.length > 0 && (
-              <div className="flex items-center space-x-3">
-                <span className="text-sm text-gray-500">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-1 sm:space-y-0">
+                <span className="hidden md:inline text-sm text-gray-500">
                   {places.length} place{places.length !== 1 ? "s" : ""}
                 </span>
                 <button
@@ -170,11 +171,13 @@ export default function PlaceManager({
 
           {activeTab === "list" && (
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-gray-900">
+              <div className="flex-col sm:flex-row items-center justify-between mb-8">
+                <h3 className="text-lg font-medium mb-3 text-gray-900">
                   Manage Your Places
                 </h3>
-                {places.length > 0 && <ExportButton places={places} />}
+                {places.length > 0 && (
+                  <ExportButton places={places} variant="inline" />
+                )}
               </div>
               <PlacesList
                 places={places}

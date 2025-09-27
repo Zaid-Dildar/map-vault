@@ -18,7 +18,6 @@ export default function ExportHistory() {
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  // Fetch exports for logged-in user
   const fetchExports = useCallback(async () => {
     setLoading(true);
     try {
@@ -46,10 +45,9 @@ export default function ExportHistory() {
 
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
-
       const link = document.createElement("a");
       link.href = url;
-      link.download = `saved_places`;
+      link.download = `saved_places.${exportJob.format}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -68,7 +66,6 @@ export default function ExportHistory() {
       const res = await fetch(`/api/exports/history?id=${exportJob.id}`, {
         method: "DELETE",
       });
-
       if (!res.ok) throw new Error("Failed to delete export");
 
       setExports((prev) => prev.filter((exp) => exp.id !== exportJob.id));
@@ -104,11 +101,10 @@ export default function ExportHistory() {
       completed: { color: "bg-green-100 text-green-800", text: "Completed" },
       failed: { color: "bg-red-100 text-red-800", text: "Failed" },
     };
-
     const config = statusConfig[status];
     return (
       <span
-        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}
+        className={`block text-center px-2 py-0.5 rounded-full text-xs font-medium ${config.color}`}
       >
         {config.text}
       </span>
@@ -117,16 +113,14 @@ export default function ExportHistory() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           Export History
         </h2>
-        <div className="animate-pulse">
-          <div className="space-y-3">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-16 bg-gray-200 rounded"></div>
-            ))}
-          </div>
+        <div className="animate-pulse space-y-3">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-16 bg-gray-200 rounded"></div>
+          ))}
         </div>
       </div>
     );
@@ -134,7 +128,7 @@ export default function ExportHistory() {
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           Export History
         </h2>
@@ -148,7 +142,7 @@ export default function ExportHistory() {
 
   return (
     <div className="bg-white rounded-lg border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-200">
+      <div className="px-4 py-4 sm:px-6 sm:py-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900">Export History</h2>
         <p className="text-sm text-gray-600 mt-1">
           Download or delete your previous exports
@@ -157,7 +151,7 @@ export default function ExportHistory() {
 
       <div className="divide-y divide-gray-200">
         {exports.length === 0 ? (
-          <div className="px-6 py-8 text-center">
+          <div className="px-4 py-6 text-center sm:px-6 sm:py-8">
             <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500">No exports found</p>
             <p className="text-sm text-gray-400 mt-1">
@@ -167,49 +161,41 @@ export default function ExportHistory() {
           </div>
         ) : (
           exports.map((exportJob) => (
-            <div key={exportJob.id} className="px-6 py-4 hover:bg-gray-50">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <FileText className="w-8 h-8 text-gray-400" />
+            <div
+              key={exportJob.id}
+              className="px-4 py-4 sm:px-6 sm:py-4 hover:bg-gray-50"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                  <FileText className="w-8 h-8 text-gray-400 flex-shrink-0" />
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0">
+                    <p className="text-sm font-medium text-gray-900">
+                      Export #{exportJob.id.slice(0, 8)}
+                    </p>
+                    <span>{getStatusBadge(exportJob.status)}</span>
+                    <span className="text-xs text-gray-500 uppercase tracking-wide">
+                      {exportJob.format}
+                    </span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:space-x-4 mt-1 sm:mt-0 text-xs text-gray-500 space-y-1 sm:space-y-0">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>{formatDate(exportJob.created_at)}</span>
                     </div>
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <p className="text-sm font-medium text-gray-900">
-                          Export #{exportJob.id.slice(0, 8)}
-                        </p>
-                        {getStatusBadge(exportJob.status)}
-                        <span className="text-xs text-gray-500 uppercase tracking-wide">
-                          {exportJob.format}
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-4 mt-1 text-xs text-gray-500">
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>{formatDate(exportJob.created_at)}</span>
-                        </div>
-                        {exportJob.total_places && (
-                          <span>{exportJob.total_places} places</span>
-                        )}
-                        {exportJob.file_size && (
-                          <span>{formatFileSize(exportJob.file_size)}</span>
-                        )}
-                      </div>
-                      {exportJob.error_message && (
-                        <p className="text-xs text-red-600 mt-1">
-                          Error: {exportJob.error_message}
-                        </p>
-                      )}
-                    </div>
+                    {exportJob.total_places && (
+                      <span>{exportJob.total_places} places</span>
+                    )}
+                    {exportJob.file_size && (
+                      <span>{formatFileSize(exportJob.file_size)}</span>
+                    )}
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
                   {exportJob.status === "completed" && exportJob.file_url && (
                     <button
                       onClick={() => handleDownload(exportJob)}
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200 transition-colors"
+                      className="flex justify-center items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200 transition-colors"
                     >
                       <Download className="w-3 h-3 mr-1" />
                       Download
@@ -219,7 +205,7 @@ export default function ExportHistory() {
                   <button
                     onClick={() => handleDelete(exportJob)}
                     disabled={deletingId === exportJob.id}
-                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex justify-center items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {deletingId === exportJob.id ? (
                       <>
@@ -234,6 +220,12 @@ export default function ExportHistory() {
                     )}
                   </button>
                 </div>
+
+                {exportJob.error_message && (
+                  <p className="text-xs text-red-600 mt-1 sm:mt-2">
+                    {exportJob.error_message}
+                  </p>
+                )}
               </div>
             </div>
           ))

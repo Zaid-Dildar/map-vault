@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import AuthButton from "@/components/auth/AuthButton";
 import PlaceManager from "@/components/dashboard/PlaceMangaer";
 import ExportHistory from "@/components/dashboard/ExportHistory";
+import Image from "next/image";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -18,20 +19,31 @@ export default async function DashboardPage() {
   console.log(data, error);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              MapVault Dashboard
-            </h1>
-            <p className="text-sm text-gray-600 mt-1">
-              Upload your Google Maps Takeout data, search new places, and
-              manage your saved locations.
-            </p>
+      <header className="bg-white/90 backdrop-blur border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-2 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <Image
+              src="/mapvault-logo.png"
+              alt="MapVault logo"
+              width={150}
+              height={150}
+              className="w-[120px] sm:w-[150px] h-auto"
+            />
+            <div className="hidden sm:block">
+              <h1 className="text-2xl font-bold text-gray-900 truncate">
+                Dashboard
+              </h1>
+              <p className="text-sm text-gray-600 mt-1 truncate">
+                Upload your Google Maps Takeout data, search new places, and
+                manage your saved locations.
+              </p>
+            </div>
           </div>
-          <AuthButton />
+          <div className="flex-shrink-0">
+            <AuthButton />
+          </div>
         </div>
       </header>
 
@@ -79,6 +91,13 @@ export default async function DashboardPage() {
         {/* Export History */}
         <ExportHistory />
       </main>
+      <footer className="px-6 py-8">
+        <div className="mx-auto max-w-7xl text-xs text-gray-500">
+          <p>
+            &copy; {new Date().getFullYear()} MapVault. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

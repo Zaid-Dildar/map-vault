@@ -11,7 +11,8 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // No authenticated user. Return empty list for preview/public pages instead of 401
+    return NextResponse.json({ exports: [] });
   }
 
   try {
