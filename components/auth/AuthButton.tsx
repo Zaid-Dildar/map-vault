@@ -71,7 +71,7 @@ export default function AuthButton({ label, className }: AuthButtonProps) {
         <span className="text-sm text-gray-600">{user.email}</span>
         <button
           onClick={handleSignOut}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors"
+          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           Sign Out
         </button>
@@ -83,7 +83,7 @@ export default function AuthButton({ label, className }: AuthButtonProps) {
     <button
       onClick={handleSignIn}
       disabled={loading}
-      className={`bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-colors flex items-center gap-2 ${className ?? ""}`}
+      className={`bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-colors transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white ${className ?? ""}`}
     >
       {loading ? (
         <>
