@@ -42,7 +42,7 @@ export default async function HomePage() {
                 </p>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                   <AuthButton label="Start Exporting Now" />
-                  <AuthButton label="Try Free Export" className="bg-white text-blue-700 border border-blue-200 hover:bg-blue-50" />
+                  <AuthButton label="Try Free Export" className="bg-white text-blue-700 border border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md ring-1 ring-blue-200 hover:ring-blue-300 font-medium" />
                 </div>
                 <p className="text-xs text-gray-500 mt-4">Sign in with your Google account to access your saved places</p>
                 <div className="mt-6 flex flex-wrap gap-4">
