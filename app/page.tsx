@@ -28,21 +28,21 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 pb-24">
+      <main className="mx-auto max-w-7xl px-4 md:px-6 pb-24">
         {/* Hero */}
         <section className="pt-8">
           <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-10 items-center">
-              <div>
+              <div className="text-center md:text-left">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
                   Export Your Google Maps Saved Places
                 </h1>
                 <p className="text-gray-600 mb-6">
                   Easily export all your saved places and lists from Google Maps to CSV or text files. Perfect for backup, sharing, or data analysis.
                 </p>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                  <AuthButton label="Start Exporting Now" />
-                  <AuthButton label="Try Free Export" className="bg-white text-blue-700 border border-blue-300 hover:bg-blue-50 shadow-sm hover:shadow-md ring-1 ring-blue-200 hover:ring-blue-300 font-medium" />
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <AuthButton label="Start Exporting Now" className="w-full sm:w-auto" />
+                  <AuthButton label="Try Free Export" className="w-full sm:w-auto bg-blue-50 text-blue-700 border border-blue-500 hover:bg-blue-100 shadow-sm hover:shadow-md ring-1 ring-blue-300 hover:ring-blue-400 font-medium" />
                 </div>
                 <p className="text-xs text-gray-500 mt-4">Sign in with your Google account to access your saved places</p>
                 <div className="mt-6 flex flex-wrap gap-4">
@@ -52,7 +52,7 @@ export default async function HomePage() {
                 </div>
               </div>
               <div className="relative">
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                <div className="bg-gray-50 rounded-lg p-6 border border-gray-100 overflow-hidden">
                   <Image src="https://images.pexels.com/photos/7634233/pexels-photo-7634233.jpeg" alt="Map with pins representing saved places" width={640} height={400} className="w-full h-auto" />
                 </div>
               </div>
