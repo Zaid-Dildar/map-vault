@@ -60,7 +60,7 @@ export default function ExportButton({ onExportComplete }: ExportButtonProps) {
         <button
           onClick={() => handleExport("csv")}
           disabled={loading}
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-colors transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           {loading ? "Exporting..." : "Export as CSV"}
         </button>
@@ -68,7 +68,7 @@ export default function ExportButton({ onExportComplete }: ExportButtonProps) {
         <button
           onClick={() => handleExport("txt")}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50 transition-colors transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           {loading ? "Exporting..." : "Export as Text"}
         </button>
