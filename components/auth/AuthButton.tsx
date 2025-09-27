@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { User } from "@supabase/auth-helpers-nextjs";
+import type { User } from "@supabase/supabase-js"; // ✅ use from supabase-js now
 
 type AuthButtonProps = {
   label?: string;
@@ -37,7 +37,7 @@ export default function AuthButton({ label, className }: AuthButtonProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase.auth, router]);
+  }, [supabase, router]);
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -49,10 +49,7 @@ export default function AuthButton({ label, className }: AuthButtonProps) {
         },
       });
 
-      if (error) {
-        console.error("Auth error:", error);
-        throw error;
-      }
+      if (error) throw error;
     } catch (error) {
       console.error("Error:", error);
       setLoading(false);

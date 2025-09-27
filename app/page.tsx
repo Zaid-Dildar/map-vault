@@ -1,10 +1,10 @@
 import AuthButton from "../components/auth/AuthButton";
-import { createServerClient } from "../lib/supabase/server";
+import { createClient } from "../lib/supabase/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
 export default async function HomePage() {
-  const supabase = createServerClient();
+  const supabase = await createClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();

@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import maplibregl from "maplibre-gl";
+import maplibregl, { LngLatLike } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { SavedPlace } from "../../lib/types";
+import { Place } from "../../lib/types";
 
 interface MapViewProps {
-  places: SavedPlace[];
+  places: Place[];
   className?: string;
 }
 
@@ -40,23 +40,36 @@ export default function MapView({ places, className = "" }: MapViewProps) {
   useEffect(() => {
     if (!map.current || !mapLoaded || !places.length) return;
 
-    // Add markers for each place
+    // Clean old markers before adding new ones
+    document.querySelectorAll(".maplibregl-marker").forEach((m) => m.remove());
+
     places.forEach((place) => {
+      const coords: LngLatLike = [place.lng, place.lat];
+
       new maplibregl.Marker()
-        .setLngLat(place.coordinates)
+        .setLngLat(coords)
         .setPopup(
           new maplibregl.Popup().setHTML(
-            `<h3>${place.name}</h3><p>${place.address}</p>`
+            `<h3>${place.name}</h3>
+             ${place.address ? `<p>${place.address}</p>` : ""}
+             ${
+               place.url
+                 ? `<a href="${place.url}" target="_blank">View on Maps</a>`
+                 : ""
+             }`
           )
         )
         .addTo(map.current!);
     });
 
-    // Fit map to show all places
+    // Fit bounds if multiple places
     if (places.length > 1) {
       const bounds = new maplibregl.LngLatBounds();
-      places.forEach((place) => bounds.extend(place.coordinates));
+      places.forEach((place) => bounds.extend([place.lng, place.lat]));
       map.current.fitBounds(bounds, { padding: 50 });
+    } else if (places.length === 1) {
+      map.current.setCenter([places[0].lng, places[0].lat]);
+      map.current.setZoom(14);
     }
   }, [places, mapLoaded]);
 

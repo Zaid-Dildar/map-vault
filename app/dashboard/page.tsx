@@ -1,12 +1,11 @@
-import { createServerClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import AuthButton from "@/components/auth/AuthButton";
-import ExportButton from "@/components/dashboard/ExportButton";
-import MapView from "@/components/maps/MapView";
-import ScrapingButton from "@/components/dashboard/ScrapingButton";
+import PlaceManager from "@/components/dashboard/PlaceMangaer";
+import ExportHistory from "@/components/dashboard/ExportHistory";
 
 export default async function DashboardPage() {
-  const supabase = createServerClient();
+  const supabase = await createClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -15,90 +14,70 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
-  // Mock data for demonstration
-  const mockPlaces = [
-    {
-      id: "1",
-      name: "Central Park",
-      address: "New York, NY, USA",
-      coordinates: [-73.9654, 40.7829] as [number, number],
-      category: "Park",
-    },
-    {
-      id: "2",
-      name: "Times Square",
-      address: "Manhattan, NY, USA",
-      coordinates: [-73.9855, 40.758] as [number, number],
-      category: "Landmark",
-    },
-  ];
+  const { data, error } = await supabase.storage.listBuckets();
+  console.log(data, error);
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                MapVault Dashboard
-              </h1>
-              <p className="text-sm text-gray-600 mt-1">
-                Demo version - Full functionality coming soon
-              </p>
-            </div>
-            <AuthButton />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              MapVault Dashboard
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Upload your Google Maps Takeout data, search new places, and
+              manage your saved locations.
+            </p>
           </div>
+          <AuthButton />
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Import Your Places
-              </h2>
-              <ScrapingButton userId={session.user.id} />
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                Demo: Your Saved Places
-              </h2>
-              <MapView places={mockPlaces} />
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold mb-4">Statistics (Demo)</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Total Places:</span>
-                  <span className="font-semibold text-gray-900">
-                    {mockPlaces.length}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Categories:</span>
-                  <span className="font-semibold text-gray-900">2</span>
-                </div>
-              </div>
-            </div>
-
-            <ExportButton />
-
-            <div className="bg-blue-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">
-                🚧 Under Development
-              </h3>
-              <p className="text-sm text-blue-800 mb-4">
-                This is a demo version. The full Google Maps integration and
-                export functionality will be implemented soon.
-              </p>
-            </div>
-          </div>
+      {/* Main */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+        {/* Instructions */}
+        <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 border border-yellow-200 rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-yellow-900 mb-3">
+            📥 How to Get Your Google Maps Saved Places JSON
+          </h2>
+          <ol className="list-decimal list-inside text-sm text-yellow-800 space-y-2">
+            <li>
+              Go to{" "}
+              <a
+                href="https://takeout.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                Google Takeout
+              </a>
+            </li>
+            <li>
+              Deselect everything except <strong>Maps (Your Places)</strong>
+            </li>
+            <li>
+              Choose <strong>JSON</strong> as the export format
+            </li>
+            <li>
+              Click <strong>Create export</strong> → you&apos;ll get a{" "}
+              <code>.zip</code> by email/download
+            </li>
+            <li>
+              Inside the <code>.zip</code>, go to{" "}
+              <code>Takeout/Maps (your places)/</code> and find{" "}
+              <strong>Saved Places.json</strong>
+            </li>
+            <li>Upload that file below to see your saved places</li>
+          </ol>
         </div>
+
+        {/* Place Manager (map + search + upload + list + export) */}
+        <PlaceManager />
+
+        {/* Export History */}
+        <ExportHistory />
       </main>
     </div>
   );
