@@ -1,4 +1,3 @@
-// app/dashboard/page.tsx (Minimal version)
 import { createServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import AuthButton from "@/components/auth/AuthButton";

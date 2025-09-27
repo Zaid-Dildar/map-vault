@@ -15,17 +15,16 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <header className="px-6 py-6">
-        <div className="mx-auto max-w-7xl flex items-center justify-between">
-          <div className="flex items-center gap-2">
+      <header className="px-6 py-2">
+        <div className="mx-auto max-w-6xl flex items-center justify-between">
+          <div className="flex items-center max-sm:mx-auto gap-2">
             <Image
-              src="https://cdn.builder.io/api/v1/image/assets%2F7eaf6aad344742baad50e5034e5e9e79%2F7a33ad8dcd6040049ee497727d2ab40e"
+              src="/mapvault-logo.png"
               alt="MapVault logo"
-              width={28}
-              height={28}
+              width={150}
+              height={150}
               className="inline-block"
             />
-            <span className="text-xl font-bold text-gray-900">MapVault</span>
           </div>
           <div className="hidden sm:block">
             <AuthButton label="Start Exporting" />
@@ -35,7 +34,7 @@ export default async function HomePage() {
 
       <main className="mx-auto max-w-7xl px-4 md:px-6 pb-24">
         {/* Hero */}
-        <section className="pt-8">
+        <section>
           <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div className="text-center md:text-left">
@@ -52,10 +51,6 @@ export default async function HomePage() {
                     label="Start Exporting Now"
                     className="w-full sm:w-auto"
                   />
-                  <AuthButton
-                    label="Try Free Export"
-                    className="w-full sm:w-auto bg-blue-50 text-blue-700 border border-blue-500 hover:bg-blue-100 shadow-sm hover:shadow-md ring-1 ring-blue-300 hover:ring-blue-400 font-medium"
-                  />
                 </div>
                 <p className="text-xs text-gray-500 mt-4">
                   Sign in with your Google account to access your saved places
@@ -68,7 +63,10 @@ export default async function HomePage() {
                     Over 1M places exported
                   </div>
                   <div className="bg-indigo-50 text-indigo-800 px-3 py-1.5 rounded-full text-xs font-medium">
-                    Trusted by travelers, researchers, businesses
+                    Trusted by businesses
+                    <span className="hidden lg:inline">
+                      , researchers and travelers
+                    </span>
                   </div>
                 </div>
               </div>
@@ -169,122 +167,6 @@ export default async function HomePage() {
               <p className="text-gray-600">
                 Re-download previous exports anytime.
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Screenshots / Demo */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            See how it works
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Google Maps saved places
-              </h3>
-              <Image
-                src="https://images.pexels.com/photos/3243090/pexels-photo-3243090.jpeg"
-                alt="Phone and travel items over a map showing saved places"
-                width={480}
-                height={280}
-                className="w-full h-auto"
-              />
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                MapVault dashboard preview
-              </h3>
-              <Image
-                src="https://images.pexels.com/photos/9182457/pexels-photo-9182457.jpeg"
-                alt="Navigation app in use, representing interactive map and dashboard"
-                width={480}
-                height={280}
-                className="w-full h-auto"
-              />
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Choose export format
-              </h3>
-              <Image
-                src="https://images.pexels.com/photos/3803517/pexels-photo-3803517.jpeg"
-                alt="Data and export concept on computer screen"
-                width={480}
-                height={280}
-                className="w-full h-auto"
-              />
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">CSV preview</h3>
-              <Image
-                src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg"
-                alt="Spreadsheet-style charts representing CSV data"
-                width={480}
-                height={280}
-                className="w-full h-auto"
-              />
-            </div>
-          </div>
-          <div className="mt-6">
-            <AuthButton label="Export My Places" />
-          </div>
-        </section>
-
-        {/* Pricing */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Simple pricing
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900">Free</h3>
-              <p className="text-gray-600 text-sm mt-1">
-                Perfect for casual users
-              </p>
-              <div className="mt-4 text-3xl font-bold text-gray-900">$0</div>
-              <ul className="mt-4 text-sm text-gray-700 space-y-2 list-disc list-inside">
-                <li>Export up to 100 places</li>
-                <li>CSV or TXT</li>
-                <li>Email notifications</li>
-              </ul>
-              <div className="mt-6">
-                <AuthButton label="Try Free Export" />
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6 ring-2 ring-blue-600">
-              <h3 className="font-semibold text-gray-900">Pro</h3>
-              <p className="text-gray-600 text-sm mt-1">
-                For power users and businesses
-              </p>
-              <div className="mt-4 text-3xl font-bold text-gray-900">
-                $9<span className="text-base font-medium">/mo</span>
-              </div>
-              <ul className="mt-4 text-sm text-gray-700 space-y-2 list-disc list-inside">
-                <li>Unlimited places</li>
-                <li>Priority processing</li>
-                <li>Export history</li>
-              </ul>
-              <div className="mt-6">
-                <AuthButton label="Upgrade to Pro" />
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900">Enterprise</h3>
-              <p className="text-gray-600 text-sm mt-1">
-                Custom solutions for organizations
-              </p>
-              <div className="mt-4 text-3xl font-bold text-gray-900">
-                Custom
-              </div>
-              <ul className="mt-4 text-sm text-gray-700 space-y-2 list-disc list-inside">
-                <li>SLAs and support</li>
-                <li>Team features</li>
-                <li>Custom integrations</li>
-              </ul>
-              <div className="mt-6">
-                <AuthButton label="Contact Sales" />
-              </div>
             </div>
           </div>
         </section>

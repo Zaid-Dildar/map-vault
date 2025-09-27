@@ -95,10 +95,6 @@ export default function ScrapingButton({}: ScrapingButtonProps) {
         <ul className="text-sm text-gray-600 space-y-1">
           <li className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-            Secure Google OAuth integration
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
             Automatic saved places extraction
           </li>
           <li className="flex items-center gap-2">
