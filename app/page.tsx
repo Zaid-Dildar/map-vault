@@ -53,7 +53,7 @@ export default async function HomePage() {
               </div>
               <div className="relative">
                 <div className="bg-gray-50 rounded-lg p-6 border border-gray-100">
-                  <Image src="/window.svg" alt="Dashboard preview" width={640} height={400} className="w-full h-auto" />
+                  <Image src="https://images.pexels.com/photos/7634233/pexels-photo-7634233.jpeg" alt="Map with pins representing saved places" width={640} height={400} className="w-full h-auto" />
                 </div>
               </div>
             </div>
@@ -117,19 +117,19 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="font-semibold text-gray-900 mb-2">Google Maps saved places</h3>
-              <Image src="/globe.svg" alt="Google Maps saved places" width={480} height={280} className="w-full h-auto" />
+              <Image src="https://images.pexels.com/photos/3243090/pexels-photo-3243090.jpeg" alt="Phone and travel items over a map showing saved places" width={480} height={280} className="w-full h-auto" />
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="font-semibold text-gray-900 mb-2">MapVault dashboard preview</h3>
-              <Image src="/window.svg" alt="MapVault dashboard preview" width={480} height={280} className="w-full h-auto" />
+              <Image src="https://images.pexels.com/photos/9182457/pexels-photo-9182457.jpeg" alt="Navigation app in use, representing interactive map and dashboard" width={480} height={280} className="w-full h-auto" />
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="font-semibold text-gray-900 mb-2">Choose export format</h3>
-              <Image src="/file.svg" alt="Export format selection" width={480} height={280} className="w-full h-auto" />
+              <Image src="https://images.pexels.com/photos/3803517/pexels-photo-3803517.jpeg" alt="Data and export concept on computer screen" width={480} height={280} className="w-full h-auto" />
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="font-semibold text-gray-900 mb-2">CSV preview</h3>
-              <Image src="/vercel.svg" alt="CSV preview" width={480} height={280} className="w-full h-auto" />
+              <Image src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg" alt="Spreadsheet-style charts representing CSV data" width={480} height={280} className="w-full h-auto" />
             </div>
           </div>
           <div className="mt-6">
