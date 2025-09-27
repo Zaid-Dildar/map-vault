@@ -195,7 +195,7 @@ export default function ExportHistory() {
                   {exportJob.status === "completed" && exportJob.file_url && (
                     <button
                       onClick={() => handleDownload(exportJob)}
-                      className="flex justify-center items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200 transition-colors"
+                      className="flex justify-center items-center cursor-pointer px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200 transition-colors"
                     >
                       <Download className="w-3 h-3 mr-1" />
                       Download
@@ -205,7 +205,7 @@ export default function ExportHistory() {
                   <button
                     onClick={() => handleDelete(exportJob)}
                     disabled={deletingId === exportJob.id}
-                    className="flex justify-center items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex justify-center items-center cursor-pointer px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {deletingId === exportJob.id ? (
                       <>

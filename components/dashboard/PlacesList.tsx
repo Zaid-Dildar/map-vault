@@ -110,13 +110,13 @@ export default function PlacesList({
               <>
                 <button
                   onClick={() => startEditing(place, idx)}
-                  className="text-blue-600 hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700 cursor-pointer"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => onPlaceRemoved(place)}
-                  className="text-red-600 hover:text-red-700"
+                  className="text-red-600 hover:text-red-700 cursor-pointer"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

@@ -95,7 +95,7 @@ export default function PlaceManager({
                 </span>
                 <button
                   onClick={clearAllPlaces}
-                  className="text-xs px-2 py-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
+                  className="text-xs px-2 py-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded cursor-pointer"
                 >
                   Clear all
                 </button>
@@ -115,7 +115,7 @@ export default function PlaceManager({
           <nav className="flex space-x-8 px-6" aria-label="Tabs">
             <button
               onClick={() => setActiveTab("upload")}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors cursor-pointer ${
                 activeTab === "upload"
                   ? "border-blue-500 text-blue-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -126,7 +126,7 @@ export default function PlaceManager({
             </button>
             <button
               onClick={() => setActiveTab("search")}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors cursor-pointer ${
                 activeTab === "search"
                   ? "border-blue-500 text-blue-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -137,7 +137,7 @@ export default function PlaceManager({
             </button>
             <button
               onClick={() => setActiveTab("list")}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors cursor-pointer ${
                 activeTab === "list"
                   ? "border-blue-500 text-blue-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"

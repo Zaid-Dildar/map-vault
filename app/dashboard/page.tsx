@@ -23,7 +23,7 @@ export default async function DashboardPage() {
       {/* Header */}
       <header className="bg-white/90 backdrop-blur border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-2 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
+          <span className="max-sm:w-10 max-sm:h-10 max-md:w-25 max-md:h-25">
             <Image
               src="/mapvault-logo.png"
               alt="MapVault logo"
@@ -31,15 +31,15 @@ export default async function DashboardPage() {
               height={150}
               className="w-[120px] sm:w-[150px] h-auto"
             />
-            <div className="hidden sm:block">
-              <h1 className="text-2xl font-bold text-gray-900 truncate">
-                Dashboard
-              </h1>
-              <p className="text-sm text-gray-600 mt-1 truncate">
-                Upload your Google Maps Takeout data, search new places, and
-                manage your saved locations.
-              </p>
-            </div>
+          </span>
+          <div className="hidden lg:block text-center">
+            <h1 className="text-2xl font-bold text-gray-900 truncate">
+              Dashboard
+            </h1>
+            <p className="text-sm text-gray-600 mt-1 truncate">
+              Upload your Google Maps Takeout data, search new places, and
+              manage your saved locations.
+            </p>
           </div>
           <div className="flex-shrink-0">
             <AuthButton />

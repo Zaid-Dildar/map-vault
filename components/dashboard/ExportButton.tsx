@@ -56,7 +56,7 @@ export default function ExportButton({
         onClick={() => handleExport("csv")}
         disabled={loading !== null}
         aria-label="Export saved places as CSV"
-        className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
+        className="inline-flex cursor-pointer items-center justify-center gap-2 w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
       >
         {loading === "csv" ? (
           "Exporting..."
@@ -72,7 +72,7 @@ export default function ExportButton({
         onClick={() => handleExport("txt")}
         disabled={loading !== null}
         aria-label="Export saved places as Text"
-        className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
+        className="inline-flex cursor-pointer items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md disabled:opacity-50"
       >
         {loading === "txt" ? (
           "Exporting..."
