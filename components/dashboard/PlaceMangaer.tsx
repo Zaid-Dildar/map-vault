@@ -7,7 +7,9 @@ import PlacesList from "./PlacesList";
 import LocationSearch from "./LocationSearch";
 import FileUpload from "./FileUpload";
 import ExportButton from "./ExportButton";
-import { Upload, Map, List, Search } from "lucide-react";
+
+import { Upload, Map, List, Search, Rocket } from "lucide-react";
+import QuickImportModal from "./QuickImportModal";
 
 interface PlaceManagerProps {
   initialPlaces?: Place[];
@@ -17,16 +19,19 @@ export default function PlaceManager({
   initialPlaces = [],
 }: PlaceManagerProps) {
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<"upload" | "search" | "list">(
     "upload"
   );
 
   const handlePlacesLoaded = useCallback((newPlaces: Place[]) => {
+    console.log(newPlaces);
     setPlaces(newPlaces);
     setActiveTab("list");
   }, []);
 
   const handlePlaceAdded = useCallback((newPlace: Place) => {
+    console.log(newPlace);
     setPlaces((prev) => [...prev, newPlace]);
     setActiveTab("list");
   }, []);
@@ -112,7 +117,7 @@ export default function PlaceManager({
       <div className="bg-white rounded-lg border border-gray-200">
         {/* Tab Navigation */}
         <div className="border-b border-gray-200">
-          <nav className="flex space-x-8 px-6" aria-label="Tabs">
+          <nav className="flex space-x-4 md:space-x-8 px-6" aria-label="Tabs">
             <button
               onClick={() => setActiveTab("upload")}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors cursor-pointer ${
@@ -121,7 +126,9 @@ export default function PlaceManager({
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              <Upload className="w-4 h-4 mr-2 inline" />
+              <div className="text-center md:inline">
+                <Upload className="w-4 h-4 mx-auto md:mr-2 md:inline md:-mt-1" />
+              </div>
               Upload File
             </button>
             <button
@@ -132,7 +139,9 @@ export default function PlaceManager({
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              <Search className="w-4 h-4 mr-2 inline" />
+              <div className="text-center md:inline">
+                <Search className="w-4 h-4 mx-auto md:mr-2 md:inline md:-mt-1" />
+              </div>
               Add Places
             </button>
             <button
@@ -143,8 +152,25 @@ export default function PlaceManager({
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              <List className="w-4 h-4 mr-2 inline" />
+              <div className="text-center md:inline">
+                <List className="w-4 h-4 mx-auto md:mr-2 md:inline md:-mt-1" />
+              </div>
               Manage List ({places.length})
+            </button>
+            {/* Button to get saved places automatically from google maps */}
+            <button
+              onClick={() => setIsModalOpen((prev) => !prev)}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors cursor-pointer ${
+                isModalOpen
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              <div className="text-center md:inline">
+                <Rocket className="w-4 h-4 mx-auto md:mr-2 md:inline md:-mt-1" />
+              </div>
+              Quick Import{" "}
+              <span className="hidden md:inline">From Google Maps</span>
             </button>
           </nav>
         </div>
@@ -188,6 +214,11 @@ export default function PlaceManager({
           )}
         </div>
       </div>
+      <QuickImportModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onImport={handlePlacesLoaded}
+      />
     </div>
   );
 }

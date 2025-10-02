@@ -15,9 +15,6 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
-  const { data, error } = await supabase.storage.listBuckets();
-  console.log(data, error);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
